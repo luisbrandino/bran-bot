@@ -9,13 +9,16 @@ module.exports = async msg => {
 
     let userCommand = msg.content.replace(config.prefix, '')
 
+    let commandSplitted = userCommand.split(/ +/)
+    let args = commandSplitted.slice(1)
+
     fs.readdir(commandsPath, (err, files) => {
         if (err) return console.log(`Unable to continue. Error: ${err}`)
 
         files.forEach(file => {
             let commandFileName = file.replace('.js', '')
 
-            if (userCommand == commandFileName) return require(`../commands/${file}`)(msg)
+            if (userCommand.startsWith(commandFileName)) return require(`../commands/${file}`)(msg, args)
         })
     })
 }

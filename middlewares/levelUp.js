@@ -1,5 +1,7 @@
 const db = require('../controllers/database')
 
+let levelUpMessage
+
 module.exports = async msg => {
     let user = msg.author
     let userProfile = {}
@@ -16,5 +18,9 @@ module.exports = async msg => {
         userProfile.level += 1
 
         db.set({ level: userProfile.level, xp: userProfile.xp }, user.id)
+
+        levelUpMessage = `<@${user.id}> agora é nível ${userProfile.level}!`
+
+        msg.channel.send(levelUpMessage)
     }
 }

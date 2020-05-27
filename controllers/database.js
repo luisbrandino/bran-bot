@@ -42,14 +42,6 @@ db.insertUsers = async users => {
     })
 }
 
-db.addXp = async (userId, gainXP) => {
-    let query = `UPDATE users SET xp = (xp + ${gainXP}) WHERE id = '${userId}'`
-
-    db.run(query, (result, err) => {
-        if (err) return console.log(`An error ocurred: ${err}`)
-    })
-}
-
 db.set = (attributes, userId) => {
     for (let key in attributes) {
         let query = `UPDATE users SET ${key} = ${attributes[key]} WHERE id = '${userId}'`

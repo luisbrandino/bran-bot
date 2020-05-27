@@ -10,5 +10,9 @@ module.exports = async msg => {
 
     if (gainChance != 1) return
 
-    db.addXp(msg.author.id, gainXp)
+    db.findProfile(msg.author).catch(v => db.insertUsers([msg.author])).then(userProfile => {
+      userProfile.xp += gainXp
+
+      db.set({ xp: userProfile.xp }, msg.author.id)
+    })
 }
