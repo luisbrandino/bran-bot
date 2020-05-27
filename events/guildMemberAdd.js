@@ -1,5 +1,5 @@
-const insertUsers = require('../controllers/insertUsers')
+const insertUsers = require('../controllers/database')
 
 module.exports = member => {
-    insertUsers([member])
+    db.insertUsers([member])
 }

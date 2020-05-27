@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const path = require('path')
 const fs = require('fs')
-const insertUsers = require('./controllers/insertUsers')
+const db = require('./controllers/database')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -23,7 +23,7 @@ client.on('ready', () => {
         })
     })
 
-    insertUsers(client.users.cache)
+    db.insertUsers(client.users.cache)
 })
 
 client.login(token)
