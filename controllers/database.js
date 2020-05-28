@@ -42,6 +42,31 @@ db.insertUsers = async users => {
     })
 }
 
+db.get = (attributes, userId) => {
+    return new Promise((resolve, reject) => {
+        let consultAttributes = ''
+
+        for (let i = 0; i < attributes.length; i++) {
+            if (attributes.length == i+1) { 
+                consultAttributes += attributes[i] 
+            } else {
+                consultAttributes += (attributes[i] + ',')
+            }
+        }
+
+        let query = `SELECT ${consultAttributes} FROM users WHERE id = '${userId}'`
+
+        db.all(query, (err, rows) => {
+            if (err) reject(err)
+
+            if (rows.length === 0) { reject('User not found in database'); return }
+
+            resolve(rows[0])
+            return
+        })
+    })
+}
+
 db.set = (attributes, userId) => {
     for (let key in attributes) {
         let query = `UPDATE users SET ${key} = ${attributes[key]} WHERE id = '${userId}'`
