@@ -1,18 +1,5 @@
 const coinsController = require('../controllers/getCoins.js')
-
-function getUserIdFromMention(mention) {
-    if (!mention) return;
-
-    if (mention.startsWith('<@') && mention.endsWith('>')) {
-        mention = mention.slice(2, -1);
-
-        if (mention.startsWith('!')) {
-            mention = mention.slice(1);
-        }
-
-        return mention
-    }
-}
+const getUserIdFromMention = require('../controllers/getUserIdFromMention')
 
 module.exports = (msg, args) => {
     let message

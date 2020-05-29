@@ -1,20 +1,7 @@
 const channelsPlaying = []
 const fs = require('fs')
 const giveCoins = require('../controllers/giveCoins')
-
-function getUserIdFromMention(mention) {
-    if (!mention) return;
-
-    if (mention.startsWith('<@') && mention.endsWith('>')) {
-        mention = mention.slice(2, -1);
-
-        if (mention.startsWith('!')) {
-            mention = mention.slice(1);
-        }
-
-        return mention
-    }
-}
+const getUserIdFromMention = require('../controllers/getUserIdFromMention')
 
 function findElementInArray(array, elementToFind) {
     for (let element of array) {
@@ -79,20 +66,18 @@ module.exports = async (msg, args) => {
             word: await getRandomWordFromFile('commands/words.txt')
         }
 
-        console.log(gameInfo.word)
-
         gameInfo.splittedWord = splitString(gameInfo.word)
         gameInfo.hiddenSplittedWord = hideSplittedWord(gameInfo.splittedWord)
 
         const filter = response => response.author == user
         const collector = msg.channel.createMessageCollector(filter, { time: 999999 })
 
-        msg.channel.send(`Palavra: ${gameInfo.hiddenSplittedWord.join('')}\nVidas: ${gameInfo.currentLives}`)
+        msg.channel.send(`Palavra: ${gameInfo.hiddenSplittedWord.join('')}\nVidas: ${':heart:'.repeat(gameInfo.currentLives) + 'x'.repeat(5 - gameInfo.currentLives)}`)
 
         collector.on('collect', message => {
             let hunch = message.content
             let correctIndices = findCorrectLettersInResponse(hunch, gameInfo.splittedWord)
-
+ 
             if (correctIndices.length) {
                 for (let correctIndex of correctIndices) {
                     gameInfo.hiddenSplittedWord[correctIndex] = gameInfo.splittedWord[correctIndex]
@@ -117,7 +102,7 @@ module.exports = async (msg, args) => {
 
             if (gameInfo.currentLives <= 0) { msg.channel.send(`perdeu!! a palavra era: ${gameInfo.word} burro`); return collector.stop()}
 
-            msg.channel.send(`Palavra: ${gameInfo.hiddenSplittedWord.join('')}\nVidas: ${gameInfo.currentLives}`)
+            msg.channel.send(`Palavra: ${gameInfo.hiddenSplittedWord.join('')}\nVidas: ${':heart:'.repeat(gameInfo.currentLives) + ':x:'.repeat(5 - gameInfo.currentLives)}`)
         })
 
         collector.on('end', () => {

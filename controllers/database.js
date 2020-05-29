@@ -57,7 +57,7 @@ db.get = (attributes, userId) => {
         let query = `SELECT ${consultAttributes} FROM users WHERE id = '${userId}'`
 
         db.all(query, (err, rows) => {
-            if (err) reject(err)
+            if (err) return console.log(`An error ocurred: ${err}`)
 
             if (rows.length === 0) { reject('User not found in database'); return }
 
@@ -69,7 +69,7 @@ db.get = (attributes, userId) => {
 
 db.set = (attributes, userId) => {
     for (let key in attributes) {
-        let query = `UPDATE users SET ${key} = ${attributes[key]} WHERE id = '${userId}'`
+        let query = `UPDATE users SET ${key} = '${attributes[key]}' WHERE id = '${userId}'`
 
         db.run(query, (err, rows) => {
             if (err) return console.log(`An error ocurred: ${err}`)

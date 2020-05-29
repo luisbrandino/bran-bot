@@ -2,7 +2,8 @@
 
 
 <b style='font-size: 20px;'>Comandos:</b>
-* b!profile
+* b!profile (user)
 * b!ping
-* b!coins
+* b!coins (user)
 * b!hangman
+* b!description (set/user)
