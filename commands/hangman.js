@@ -31,7 +31,7 @@ function findCorrectLettersInResponse(response, correctLetters) {
             correctLettersIndex.push(i)
         }
     }
-
+ 
     return correctLettersIndex
 }
 
@@ -84,14 +84,14 @@ module.exports = async (msg, args) => {
                 }
 
                 if (gameInfo.hiddenSplittedWord.join('') == gameInfo.word) {
-                    msg.channel.send('ganhou parabrns!!')
+                    msg.channel.send('Ganhou!')
                     giveCoins(150, user)
 
                     return collector.stop()
                 }
             } else {
                 if (hunch == gameInfo.word) {
-                    msg.channel.send('ganhdou parabens!!')
+                    msg.channel.send('Ganhou!')
                     giveCoins(150, user)
 
                     return collector.stop()
@@ -100,7 +100,7 @@ module.exports = async (msg, args) => {
                 gameInfo.currentLives--
             }
 
-            if (gameInfo.currentLives <= 0) { msg.channel.send(`perdeu!! a palavra era: ${gameInfo.word} burro`); return collector.stop()}
+            if (gameInfo.currentLives <= 0) { msg.channel.send(`Suas vidas acabaram! A palavra era: ${gameInfo.word}`); return collector.stop()}
 
             msg.channel.send(`Palavra: ${gameInfo.hiddenSplittedWord.join('')}\nVidas: ${':heart:'.repeat(gameInfo.currentLives) + ':x:'.repeat(5 - gameInfo.currentLives)}`)
         })

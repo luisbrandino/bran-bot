@@ -7,7 +7,7 @@ const commandsPath = path.join(__dirname.replace('middlewares', ''), 'commands')
 module.exports = async msg => {
     if (!msg.content.startsWith(config.prefix)) return
 
-    let userCommand = msg.content.replace(config.prefix, '')
+    let userCommand = msg.content.replace(config.prefix, '').trim()
 
     let commandSplitted = userCommand.split(/ +/)
     let args = commandSplitted.slice(1)

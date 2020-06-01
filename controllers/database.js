@@ -24,7 +24,7 @@ db.insertUsers = async users => {
     users.forEach(user => {
         if (user.bot) return
 
-        let consultUser =  `SELECT * FROM users WHERE id = ${user.id}`
+        let consultUser = `SELECT * FROM users WHERE id = ${user.id}`
 
         db.all(consultUser, (err, rows) => {
             if (err) return console.log(`An error ocurred: ${err}`)
@@ -57,7 +57,7 @@ db.get = (attributes, userId) => {
         let query = `SELECT ${consultAttributes} FROM users WHERE id = '${userId}'`
 
         db.all(query, (err, rows) => {
-            if (err) return console.log(`An error ocurred: ${err}`)
+            if (err) return console.log(`An error ocurred: ${err}`) 
 
             if (rows.length === 0) { reject('User not found in database'); return }
 
