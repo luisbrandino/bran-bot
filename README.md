@@ -7,3 +7,4 @@
 * b!hangman
 * b!description (set/user)
 * b!lucky (user)
+* b!bet (value)
